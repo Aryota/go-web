@@ -1,25 +1,35 @@
 package main
 
 import (
-    "github.com/gin-gonic/gin"
+    "html/template"
+    "net/http"
 )
 
+type PageData struct {
+    Title string
+}
+
 func main() {
-    router := gin.Default()
+    http.HandleFunc("/", func(w http.ResponseWriter, r *http.Request) {
+        data := PageData{
+            Title: "My Golang Web Page",
+        }
 
-    // ルートパスのハンドラ
-    router.GET("/", func(c *gin.Context) {
-        c.JSON(200, gin.H{
-            "message": "Hello, World!",
-        })
+        t, err := template.ParseFiles("templates/template.html")
+        if err != nil {
+            http.Error(w, err.Error(), http.StatusInternalServerError)
+            return
+        }
+
+        err = t.Execute(w, data)
+        if err != nil {
+            http.Error(w, err.Error(), http.StatusInternalServerError)
+            return
+        }
     })
 
-    // /users パスのハンドラ
-    router.GET("/users", func(c *gin.Context) {
-        c.JSON(200, gin.H{
-            "message": "User list",
-        })
-    })
+    fs := http.FileServer(http.Dir("static"))
+    http.Handle("/static/", http.StripPrefix("/static/", fs))
 
-    router.Run(":8080")
+    http.ListenAndServe(":8080", nil)
 }
