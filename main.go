@@ -1,35 +1,37 @@
 package main
 
 import (
-    "html/template"
-    "net/http"
+	"html/template"
+	"log"
+	"net/http"
 )
 
 type PageData struct {
-    Title string
+	Title string
 }
 
 func main() {
-    http.HandleFunc("/", func(w http.ResponseWriter, r *http.Request) {
-        data := PageData{
-            Title: "My Golang Web Page",
-        }
+	http.HandleFunc("/", func(w http.ResponseWriter, r *http.Request) {
+		tmpl := template.Must(template.ParseFiles("view/main.html"))
 
-        t, err := template.ParseFiles("templates/template.html")
-        if err != nil {
-            http.Error(w, err.Error(), http.StatusInternalServerError)
-            return
-        }
+		data := PageData{
+			Title: "Checkout!",
+		}
 
-        err = t.Execute(w, data)
-        if err != nil {
-            http.Error(w, err.Error(), http.StatusInternalServerError)
-            return
-        }
-    })
+		err := tmpl.Execute(w, data)
+		if err != nil {
+			log.Println("Failed to render template:", err)
+			http.Error(w, "Internal Server Error", http.StatusInternalServerError)
+			return
+		}
+	})
 
-    fs := http.FileServer(http.Dir("static"))
-    http.Handle("/static/", http.StripPrefix("/static/", fs))
+	http.HandleFunc("/javascript/number.js", func(w http.ResponseWriter, r *http.Request) {
+		http.ServeFile(w, r, "view/javascript/number.js")
+	})
 
-    http.ListenAndServe(":8080", nil)
+	fs := http.FileServer(http.Dir("view/static"))
+	http.Handle("/static/", http.StripPrefix("/static/", fs))
+
+	http.ListenAndServe(":8080", nil)
 }
