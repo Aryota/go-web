@@ -5,31 +5,23 @@
   <link rel="stylesheet" href="/static/styles.css">
 </head>
 <body>
-  <form action="/process" method="post">
+  <form id="numberForm" action="/" method="post">
     <label for="number">Please input number</label>
     <input type="number" id="number" name="number" required>
     <button type="submit">send</button>
-    <button type="button" onclick="resetTable()">Reset</button>
+    <button type="button" id="resetButton">Reset</button>
   </form>
 
   <table id="result-table">
-    <thead>
+    <thead id="table-header">
       <tr>
-        <th>Number</th>
-        <th>First</th>
-        <th>Second</th>
-        <th>Third</th>
+        <th id="numberHeader">Number</th>
+        <th id="firstHeader">First</th>
+        <th id="secondHeader">Second</th>
+        <th id="thirdHeader">Third</th>
       </tr>
     </thead>
-    <tbody>
-      {{range .Numbers}}
-      <tr>
-        <td>{{.Number}}</td>
-        <td>{{.First}}</td>
-        <td>{{.Second}}</td>
-        <td>{{.Third}}</td>
-      </tr>
-      {{end}}
+    <tbody id="result-body">
     </tbody>
   </table>
 
