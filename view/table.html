@@ -1,21 +1,14 @@
-{{define "table"}}
-<!DOCTYPE html>
-<html>
-<head>
-  <title>Checkout!</title>
-  <link rel="stylesheet" href="/static/styles.css">
-</head>
-<body>
+<!-- {{define "table"}}
   <table id="result-table">
-    <thead>
+    <thead id="table-header" style="display: none;">
       <tr>
-        <th>Number</th>
-        <th>First</th>
-        <th>Second</th>
-        <th>Third</th>
+        <th id="numberHeader">Number</th>
+        <th id="firstHeader">First</th>
+        <th id="secondHeader">Second</th>
+        <th id="thirdHeader">Third</th>
       </tr>
     </thead>
-    <tbody>
+    <tbody id="result-body">
       {{range .Numbers}}
       <tr>
         <td>{{.Number}}</td>
@@ -26,8 +19,4 @@
       {{end}}
     </tbody>
   </table>
-
-  <script src="/javascript/number.js"></script>
-</body>
-</html>
-{{end}}
+{{end}} -->
