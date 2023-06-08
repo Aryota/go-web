@@ -30,20 +30,20 @@ button[type="submit"] {
   cursor: pointer;
 }
 
-#result-container {
-  margin-top: 10px;
+#result-table {
+  border-collapse: collapse;
+  width: 100%;
+  table-layout: fixed;
 }
 
-#result {
-  font-weight: bold;
+#result-table th,
+#result-table td {
+  border: 1px solid black;
+  padding: 8px;
+  text-align: center;
+  width: 25%;
 }
 
 #table-header {
-  display: none;
-}
-
-@media only screen and (max-width: 480px) {
-  input[type="number"] {
-    width: 100%;
-  }
+  width: 100%;
 }
