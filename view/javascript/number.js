@@ -34,7 +34,7 @@ document.addEventListener('DOMContentLoaded', function() {
     resultBody.appendChild(row);
 
     // テーブルヘッダーを表示
-    tableHeader.style.display = 'table-row';
+    tableHeader.style.display = 'table-row-group';
 
     numberInput.value = ''; // 数値の入力欄をリセット
   });
